@@ -7,9 +7,11 @@ module.exports.handler = async (event, context, callback) => {
   const amount = requestBody.charge.amount;
   const currency = requestBody.charge.currency;
   const productId = requestBody.charge.productId;
+  const description = 'Charge for description add here';
+  const receipt_email = 'mkrogdepaul@gmail.com';
 
   try {
-    const charge = await stripe.charges.create({ amount, currency, source: token});
+    const charge = await stripe.charges.create({ amount, currency, source: token, description, receipt_email });
     const productAmount = await stripe.products.retrieve(productId);
 
     await callback(null, {
